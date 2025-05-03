@@ -1,0 +1,12 @@
+{
+    "name": "Test_4_New_Metrics",
+    "batches": 8,
+    "epochs": [50, 100, 150],
+    "optimizers": ["Adam"],
+    "models": ["custom_resnet152", "custom_resnet101", "custom_effntb2"],
+    "aditionals" : ["no_augmentation", "no_all_data"],
+    "inference": true
+
+}
+
+
