@@ -19,15 +19,15 @@ def pipeline(output_folder, inference_path):
         ALL_DATA = False
         WEIGHTED_LOSS = True
 
-    print("Creando dataloaders")
+    print("[INFO] Creando dataloaders")
     train_loader, test_loader = load_data(output_folder, parameters["batches"],
                                           augmentation=AUGMENTATION, all_data=ALL_DATA)
-    print("Dataloaders creados")
+    print("[INFO] Dataloaders creados")
 
     
-    print("Iniciando entrenamiento")
+    print("[INFO] Iniciando entrenamiento")
     run_experiments(test_loader, train_loader, parameters, w_loss=False)
-    print("Entrenamiento finalizado")
+    print("[INFO] Entrenamiento finalizado")
 
     return
 

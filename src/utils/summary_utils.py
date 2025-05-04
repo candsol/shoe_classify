@@ -182,7 +182,7 @@ def train(model: nn.Module, test_data: DataLoader, train_data: DataLoader, loss_
             #Confusion matrix
             if epoch == epochs - 1:
                 cm = confusion_matrix(test_preds, test_labels)
-                cm_fig = plot_confusion_matrix(cm, ["Control", "Parkinson"], title)
+                cm_fig = plot_confusion_matrix(cm, train_data.dataset.dataset.classes, title)
                 writer.add_figure("Confusion Matrix", cm_fig, global_step=epoch)
 
                 #Roc curve
