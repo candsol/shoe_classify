@@ -1,22 +1,11 @@
-from utils.normalización import normalice_and_save
-from utils.data_load import load_data
-from utils.experiment_generator import run_experiments
-from utils.inference import inference_data
+# from src.utils.normalización import normalice_and_save
+from src.utils.data_load import load_data
+from src.utils.experiment_generator import run_experiments
 import json
 
 def pipeline(output_folder, inference_path):
     with open("parameters.json", "r",encoding="utf-8") as file:
         parameters = json.load(file)
-    
-    if parameters["inference"]:
-        print("Iniciando inferencia")
-        inference_data(inference_path)
-        print("Inferencia finalizada")
-        return
-
-    print("Iniciando normalización")
-    normalice_and_save(output_folder)
-    print("Normalización finalizada")
 
     AUGMENTATION = True
     ALL_DATA = False
@@ -37,7 +26,7 @@ def pipeline(output_folder, inference_path):
 
     
     print("Iniciando entrenamiento")
-    run_experiments(test_loader, train_loader, parameters, w_loss=WEIGHTED_LOSS)
+    run_experiments(test_loader, train_loader, parameters, w_loss=False)
     print("Entrenamiento finalizado")
 
     return

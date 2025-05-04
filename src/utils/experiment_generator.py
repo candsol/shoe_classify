@@ -3,6 +3,8 @@ import json
 import torch
 from torch.utils.data import DataLoader
 from torch import nn
+
+from src.utils.normalización import normalized_dataset
 from src.utils.engine import set_seed
 from src.utils.model_generator import TinyVGG
 from src.utils.model_generator import get_model

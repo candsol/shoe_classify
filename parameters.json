@@ -1,6 +1,6 @@
 {
-    "name": "Test_4_New_Metrics",
-    "batches": 8,
+    "name": "Test_1_New_Metrics",
+    "batches": 128,
     "epochs": [50, 100, 150],
     "optimizers": ["Adam"],
     "models": ["custom_resnet152", "custom_resnet101", "custom_effntb2"],

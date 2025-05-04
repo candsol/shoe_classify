@@ -1,6 +1,5 @@
 import torch
 from torch import nn
-from efficientnet_pytorch_3d import EfficientNet3D
 import torchvision
 from src.utils.engine import set_seed
 
@@ -18,7 +17,7 @@ def get_model(model_name: str) -> nn.Module:
             return model
         if model_name == "effntb2":
             model = create_effntb2()
-            model = CustomEfficientNet(model)
+            # model = CustomEfficientNet(model)
             return model
         if model_name == "convnextTiny":
             model = create_convnext_tiny()
@@ -34,17 +33,17 @@ def get_model(model_name: str) -> nn.Module:
             return model
         if model_name == "resnet101":
             model = create_resnet101()
-            model = CustomEfficientNet(model)
+            # model = CustomEfficientNet(model)
             return model
         if model_name == "resnet152":
             model = create_resnet152()
-            model = CustomEfficientNet(model)
+            # model = CustomEfficientNet(model)
             return model
 
-    
-    model = EfficientNet3D.from_name(f"{model_name}", override_params={'num_classes': 2}, in_channels=1)
+    model = create_resnet152()
+    model = CustomEfficientNet(model)
     return model
-        
+
 
 
 class TinyVGG(nn.Module):
@@ -170,7 +169,7 @@ def create_effntb2():
 
     model.classifier = torch.nn.Sequential(
         torch.nn.Dropout(p=0.3, inplace=True), #We dont change this variable
-        torch.nn.Linear(in_features=1408, out_features=2, bias=True)
+        torch.nn.Linear(in_features=1408, out_features=3, bias=True)
     )
     print("[INFO] create new effntb2 model.")
     return model
@@ -217,7 +216,7 @@ def create_resnet50():
 
     model.fc = torch.nn.Sequential(
         torch.nn.Dropout(p=0.2, inplace=True), #We dont change this variable
-        torch.nn.Linear(in_features=model.fc.in_features, out_features=2, bias=True)
+        torch.nn.Linear(in_features=model.fc.in_features, out_features=3, bias=True)
     )
     print("[INFO] create new resnet50 model.")
     return model
@@ -230,7 +229,7 @@ def create_resnet101():
 
     model.fc = torch.nn.Sequential(
         torch.nn.Dropout(p=0.2, inplace=True), #We dont change this variable
-        torch.nn.Linear(in_features=model.fc.in_features, out_features=2, bias=True)
+        torch.nn.Linear(in_features=model.fc.in_features, out_features=3, bias=True)
     )
     print("[INFO] create new resnet101 model.")
     return model
@@ -243,7 +242,7 @@ def create_resnet152():
 
     model.fc = torch.nn.Sequential(
         torch.nn.Dropout(p=0.2, inplace=True), #We dont change this variable
-        torch.nn.Linear(in_features=model.fc.in_features, out_features=2, bias=True)
+        torch.nn.Linear(in_features=model.fc.in_features, out_features=3, bias=True)
     )
     print("[INFO] create new resnet152 model.")
     return model
