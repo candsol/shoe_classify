@@ -140,6 +140,7 @@ def train(model: nn.Module, test_data: DataLoader, train_data: DataLoader, loss_
 
 
         print(
+            "\n"
             f"Epoch {epoch+1} |"
             f"train_loss :{train_loss: .4f} |"
             f"train_acc :{train_acc: .4f} |"
@@ -185,13 +186,7 @@ def train(model: nn.Module, test_data: DataLoader, train_data: DataLoader, loss_
                 cm_fig = plot_confusion_matrix(cm, train_data.dataset.dataset.classes, title)
                 writer.add_figure("Confusion Matrix", cm_fig, global_step=epoch)
 
-                #Roc curve
-                fpr, tpr, _ = roc_curve(train_labes, train_preds)
-                roc_auc = auc(fpr, tpr)
-                roc_fig = plot_roc_curve(fpr, tpr, roc_auc)
-                writer.add_figure("ROC Curve", roc_fig, global_step=epoch)
-                writer.close()
-        
+
         # Para guardar el mejor modelo
         if test_acc > best_test_acc and train_loss < best_train_loss:
             best_test_acc = train_acc

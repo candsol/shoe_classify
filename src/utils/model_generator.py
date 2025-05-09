@@ -155,7 +155,7 @@ def freeze_parameters(model: nn.Module) -> nn.Module:
 
     model.classifier = torch.nn.Sequential(
         torch.nn.Dropout(p=0.2, inplace=True), #We dont change this variable
-        torch.nn.Linear(in_features=1280, out_features=2, bias=True)
+        torch.nn.Linear(in_features=1280, out_features=3, bias=True)
     )
     return model
 

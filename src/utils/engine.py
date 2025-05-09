@@ -15,10 +15,10 @@ def set_seed(seed: int=23):
 
 def train_func(model: nn.Module, data: torch.utils.data.DataLoader, loss_fn:nn.Module,
                optimizer: torch.optim.Optimizer, device: torch.device):
-    model.eval()
     train_loss, train_acc = 0, 0
     all_preds = []
     all_labels = []
+    model.train()
     for bathc, (X, y) in enumerate(data):
         X, y = X.to(device), y.to(device)
         y_logit = model(X)

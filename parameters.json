@@ -1,8 +1,8 @@
 {
-    "name": "Test_1_New_Metrics",
-    "batches": 1024,
-    "epochs": [15, 20, 30],
-    "optimizers": ["Adam"],
+    "name": "Test_2_New_Metrics",
+    "batches": 128,
+    "epochs": [5, 10, 15],
+    "optimizers": ["Adam", "SGD", "Adamw"],
     "models": ["custom_resnet152", "custom_resnet101", "custom_effntb2"],
     "aditionals" : ["no_augmentation", "no_all_data"],
     "inference": true
