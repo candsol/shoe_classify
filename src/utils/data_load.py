@@ -10,15 +10,27 @@ from src.utils.data_setup import download_and_get_dataset
 def load_data(output_path: str, batch_size: int, test: int = 0.3, transform=None, augmentation=True, all_data=False):
 
     print("[INFO] Cargando datos")
+    augmentation_transform = transforms.Compose([
+        transforms.RandomHorizontalFlip(0.8),
+        transforms.RandomRotation(30),
+        transforms.RandomVerticalFlip(0.6),
+    ])
+
     dataset_path = download_and_get_dataset()
     transform = transforms.Compose([
         transforms.Resize((224, 224)),
+        #Totensor automáticamente normaliza a [0,1]
         transforms.ToTensor(),
+        # Realizamos la augmentación solo si se indica
+        augmentation_transform if augmentation else transforms.Lambda(lambda x: x),
+        # Normalizamos con los datos sugeridos por ResNet https://docs.pytorch.org/vision/main/models/generated/torchvision.models.resnet152.html
+        transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
     ])
+
     dataset = datasets.ImageFolder(dataset_path, transform=transform)
 
     targets = np.array(dataset.targets)
-
+    #Separación de test y train en partes iguales para cada clase
     splits = StratifiedShuffleSplit(n_splits=1, test_size=test, random_state=23)
 
     for train_idx, val_idx in splits.split(np.zeros(len(targets)), targets):
